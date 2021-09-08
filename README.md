@@ -19,3 +19,16 @@ you can set the max and min square size in the subdivide methods (functions?)
 [stb_image / stb_image_write](https://github.com/nothings/stb)
 
 [thread-pool](https://github.com/bshoshany/thread-pool) - by recommendation of [ramidzkh](https://github.com/ramidzkh)
+
+# FFMPEG commands
+
+If you have a video file called `bad_apple.mp4`, that's 360p resolution, you can convert it into the input format with
+```
+ffmpeg -i bad_apple.mp4 -vf "crop=360:360, negate" in/img_%d.png
+```
+
+To convert the output frames back into a video (with sound), use:
+
+```
+ffmpeg -r 30 -f image2 -s 360x360 -i out/img_%d.png -i bad_apple.mp4 -vcodec libx264 -acodec copy -map 0:v:0 -map 1:a:0 -crf 15 -pix_fmt yuv420p out.mp4
+```
