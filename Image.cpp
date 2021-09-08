@@ -320,7 +320,7 @@ void Image::subdivideRGB(uint16_t sx, uint16_t sy, uint16_t sw, uint16_t sh, Ima
     int valG = std::get<2>(check);
     int valB = std::get<3>(check);
 
-    if ((!quad && sw > 8 && sh > 8) || (sw > 32 && sh > 32)) {
+    if ((!quad && sw > 8 && sh > 8) ) {
         uint16_t sw_l, sw_r, sh_t, sh_b;
         if (sw % 2 == 0) {
             sw_l = sw/2;
