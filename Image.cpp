@@ -2,6 +2,8 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define BYTE_BOUND(value) value < 0 ? 0 : (value > 255 ? 255 : value)
 
+#define MIN_GIF_SIZE 8
+
 #include "Image.h"
 
 #include "lib/stb_image.h"
@@ -264,7 +266,7 @@ void Image::subdivideBW(uint16_t sx, uint16_t sy, uint16_t sw, uint16_t sh, Imag
 
     int val = subdivideCheckBW(sx, sy, sw, sh);
 
-    if (val > 0 && val < 255 && sw > 16 && sh > 16) {
+    if (val > 0 && val < 255 && sw > MIN_GIF_SIZE && sh > MIN_GIF_SIZE) {
         uint16_t sw_l, sw_r, sh_t, sh_b;
         if (sw % 2 == 0) {
             sw_l = sw/2;

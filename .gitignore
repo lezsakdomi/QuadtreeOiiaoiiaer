@@ -1,2 +1,9 @@
 .*
 !/.gitignore
+in/*
+out/*
+*.o
+amogus
+*.mp4
+*~
+apple/*
