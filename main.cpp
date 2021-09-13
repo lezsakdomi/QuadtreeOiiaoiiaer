@@ -5,11 +5,13 @@
 #include "lib/thread_pool.hpp"
 #include "Image.h"
 
+#define NUM_GIF_FRAMES 6
+
 void workBW(int i, int index, std::vector<std::map<std::pair<int, int>, Image>>& preloadedResized);
 void workCol(int i, int index, std::vector<std::map<std::pair<int, int>, Image>>& preloadedResized);
 
-void createVideoFramesBW(int start, int end, int repeatFrames);
-void createVideoFramesCol(int start, int end, int repeatFrames);
+void createVideoFramesBW(int start, int end, int repeatFrames, int num_gif_frames);
+void createVideoFramesCol(int start, int end, int repeatFrames, int num_gif_frames);
 
 void showUsage() {
     std::cout<<"Usage: [?.exe] [BW | Col] [Start] [End] (SFRC)\n"
@@ -22,6 +24,7 @@ void showUsage() {
 int main(int argc, char *argv[0]) {
     std::string type;
     int start, end, repeatFrames;
+    int num_gif_frames = NUM_GIF_FRAMES;
     if (argc < 4) {
         showUsage();
         return 0;
@@ -34,11 +37,14 @@ int main(int argc, char *argv[0]) {
     if (argc > 4) {
         repeatFrames = std::stoi(argv[4]);
     }
+    if (argc > 5) {
+	num_gif_frames = std::stoi(argv[5]);
+    }
 
     if (type == "BW") {
-        createVideoFramesBW(start, end, repeatFrames);
+        createVideoFramesBW(start, end, repeatFrames, num_gif_frames);
     } else if (type == "Col") {
-        createVideoFramesCol(start, end, repeatFrames);
+        createVideoFramesCol(start, end, repeatFrames, num_gif_frames);
     } else {
         showUsage();
         return 0;
@@ -49,7 +55,7 @@ int main(int argc, char *argv[0]) {
 }
 
 
-void createVideoFramesBW(int start, int end, int repeatFrames) {
+void createVideoFramesBW(int start, int end, int repeatFrames, int num_gif_frames) {
 
     std::vector<std::map<std::pair<int, int>, Image>> preloadedResized;
     int width;
@@ -59,8 +65,8 @@ void createVideoFramesBW(int start, int end, int repeatFrames) {
     width = first_frame.w;
     height = first_frame.h;
 
-    for (int i = 0; i < 6; i++) {
-        std::string amogus_name("res/" + std::to_string(i) + ".png");
+    for (int i = 0; i < num_gif_frames; i++) {
+        std::string amogus_name("res/" + std::to_string(i+1) + ".png");
         Image amogus(amogus_name.c_str());
 
         preloadedResized.push_back(amogus.preloadResized(width, height));
@@ -69,7 +75,7 @@ void createVideoFramesBW(int start, int end, int repeatFrames) {
     thread_pool pool;
 
     for (int i = start; i <= end; i++) {
-        int index = floor((i % (6*repeatFrames))/repeatFrames);
+        int index = floor((i % (num_gif_frames*repeatFrames))/repeatFrames);
         pool.submit(workBW, i, index, std::ref(preloadedResized));
     }
 
@@ -85,7 +91,7 @@ void workBW(int i, int index, std::vector<std::map<std::pair<int, int>, Image>>&
     std::cout<<i<<"\n";
 }
 
-void createVideoFramesCol(int start, int end, int repeatFrames) {
+void createVideoFramesCol(int start, int end, int repeatFrames, int num_gif_frames) {
 
     std::vector<std::map<std::pair<int, int>, Image>> preloadedResized;
     int width;
@@ -95,8 +101,8 @@ void createVideoFramesCol(int start, int end, int repeatFrames) {
     width = first_frame.w;
     height = first_frame.h;
 
-    for (int i = 0; i < 6; i++) {
-        std::string amogus_name("res/" + std::to_string(i) + ".png");
+    for (int i = 0; i < num_gif_frames; i++) {
+        std::string amogus_name("res/" + std::to_string(i+1) + ".png");
         Image amogus(amogus_name.c_str());
 
         preloadedResized.push_back(amogus.preloadResized(width, height));
@@ -105,7 +111,7 @@ void createVideoFramesCol(int start, int end, int repeatFrames) {
     thread_pool pool;
 
     for (int i = start; i <= end; i++) {
-        int index = floor((i % (6*repeatFrames))/repeatFrames);
+        int index = floor((i % (num_gif_frames*repeatFrames))/repeatFrames);
         pool.submit(workCol, i, index, std::ref(preloadedResized));
     }
 
