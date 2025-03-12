@@ -56,7 +56,7 @@ int main(int argc, char *argv[0]) {
         return 0;
     }
 
-    std::cout<<"\n\nDone"<<std::endl;
+    std::cout<<"\nDone"<<std::endl;
     return 0;
 }
 
@@ -95,7 +95,7 @@ void workBW(int i, int index, std::vector<std::map<std::pair<int, int>, Image>>&
     Image frame_done = frame.quadifyFrameBW(preloadedResized.at(index));
     std::string save_loc("out/img_" + std::to_string(i) + ".png");
     frame_done.write(save_loc.c_str());
-    std::cout<<i<<"\n";
+    std::cout<<"Frame "<<i<<"\r";
 }
 
 void createVideoFramesCol(int start, int end, int repeatFrames, int gif_start, int num_gif_frames) {
@@ -132,5 +132,5 @@ void workCol(int i, int index, std::vector<std::map<std::pair<int, int>, Image>>
     Image frame_done = frame.quadifyFrameRGB(preloadedResized.at(index));
     std::string save_loc("out/img_" + std::to_string(i) + ".png");
     frame_done.write(save_loc.c_str());
-    std::cout<<i<<"\n";
+    std::cout<<"Frame "<<i<<"\r";
 }
