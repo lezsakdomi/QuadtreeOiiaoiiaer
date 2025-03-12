@@ -14,11 +14,13 @@ void createVideoFramesBW(int start, int end, int repeatFrames, int gif_start, in
 void createVideoFramesCol(int start, int end, int repeatFrames, int gif_start, int num_gif_frames);
 
 void showUsage() {
-    std::cout<<"Usage: [?.exe] [BW | Col] [Start] [End] (SFRC)\n"
-             <<"BW | Col:   Black and White or Colored Image Sequence\n"
-             <<"Start:      Frame to start on (int)\n"
-             <<"End:        Frame to end on (int)\n"
-             <<"SFRC:       How often to repeat Sprite frames (optional, default 2)"<<std::endl;
+    std::cout<<"Usage: [?.exe] type start end [SFRC] [gif_start] [gif_frames]\n"
+             <<"type:       Black and White or Colored Image Sequence ('BW' or 'Col')\n"
+             <<"start:      Frame to start on (int)\n"
+             <<"end:        Frame to end on (int)\n"
+             <<"SFRC:       How often to repeat Sprite frames (default 2)\n"
+	     <<"gif_start:  Starting frame to use for GIF from the `res` dir (default 0)\n"
+	     <<"gif_frames: How much frames to assume for the GIF file in the `res` dir (default "<<NUM_GIF_FRAMES<<")"<<std::endl;
 }
 
 int main(int argc, char *argv[0]) {
