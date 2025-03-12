@@ -1,0 +1,1 @@
+c259bb6ec4316731bb8ea5a96880bf97eb119950bc8b132889c564cca6b51ea9  - ffmpeg -i /home/led/Downloads/cat-oiiaoiia-cat.gif -vf crop=100:100, setpts=PTS-STARTPTS -start_number 0 res_new/%d.png

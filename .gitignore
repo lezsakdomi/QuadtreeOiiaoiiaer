@@ -2,6 +2,7 @@
 !/.gitignore
 in/*
 out/*
+res/*
 *.o
 amogus
 *.mp4
